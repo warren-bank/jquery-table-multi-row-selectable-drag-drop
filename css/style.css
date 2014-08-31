@@ -1,0 +1,193 @@
+﻿/* ----- general layout ------------------------- */
+
+div.demo_container:before {
+	display:				block;
+	width:					100%;
+	height:					40px;
+	white-space:			nowrap;
+	text-align:				left;
+	color:					#333333;
+	font-weight:			bold;
+	font-family:			sans-serif;
+	font-size:				20px;
+	line-height:			40px;
+	content:				"Demo\2013  " attr(x-title);
+}
+div.demo_container + div.demo_container {
+	margin-top:				40px;
+}
+
+/* ----- shared by all demos -------------------- */
+
+table.demo,
+table.demo tr,
+table.demo tr td {
+	outline:				none;
+	border:					none;
+}
+table.demo {
+	width:					100%;
+	border-collapse:		collapse;
+	border-spacing:			none;
+}
+table.demo {
+	-moz-user-select:		none;
+	-webkit-user-select:	none;
+	-ms-user-select:		none;
+	-o-user-select:			none;
+	user-select:			none;
+}
+table.demo.focused {
+	box-shadow:				5px 5px 5px 0px #666666;
+}
+table.demo tr {
+	height:					50px;
+}
+
+/* ----- demo #01 ------------------------------- */
+
+table.demo#demo_01 {
+	border-collapse:		separate;
+	border-spacing:			2px;
+}
+table.demo#demo_01 tr td {
+	background-color:		#333333;
+	cursor:					pointer;
+}
+table.demo#demo_01 tr.selected td {
+	background-color:		#999999;
+}
+table.demo#demo_01 tr td.drag_handle,
+table.demo#demo_01 tr.selected td.drag_handle {
+	background-color:		#cccccc;
+	width:					50px;
+}
+table.demo#demo_01 tr td.drag_handle {
+	cursor:					not-allowed;
+}
+table.demo#demo_01 tr.selected td.drag_handle {
+	cursor:					move;
+}
+table.demo#demo_01 tr td.drag_handle {
+	text-align:				center;
+	color:					#333333;
+	font-weight:			bold;
+	font-family:			sans-serif;
+	font-size:				12px;
+}
+
+/* ----- demo #02 ------------------------------- */
+
+/*
+ * embedded font containing 2 unicode glyphs:
+ *     /2610 = checkbox unchecked
+ *     /2611 = checkbox checked
+ *
+ * for systems that don't have any installed sans-serif fonts
+ * containing either of these glyphs.
+ *
+ * ex: WinXP
+ */
+@font-face {
+	font-family: 'uncheck_check';
+	src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALAIAAAwAwT1MvMkgiLMcAAAC8AAAAYGNtYXDaREx4AAABHAAAAExnYXNwAAAAEAAAAWgAAAAIZ2x5ZmBLJE0AAAFwAAAAvGhlYWQBXvxnAAACLAAAADZoaGVhA+IB5wAAAmQAAAAkaG10eAUAAAAAAAKIAAAAGGxvY2EAhgBMAAACoAAAAA5tYXhwAAoAEwAAArAAAAAgbmFtZZg8J1sAAALQAAABe3Bvc3QAAwAAAAAETAAAACAAAwIAAZAABQAAAUwBZgAAAEcBTAFmAAAA9QAZAIQAAAAAAAAAAAAAAAAAAAABAABAAAAAAAAAAAAAAAAAAABAAAAmEQHg/+D/4AHgACAAAAABAAAAAAAAAAAAAAAgAAAAAAACAAAAAwAAABQAAwABAAAAFAAEADgAAAAKAAgAAgACAAEAICYR//3//wAAAAAAICYQ//3//wAB/+PZ9AADAAEAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAgAA/+ACAAHgAAQACQAAExEhESEBIREhEQACAP4AAeD+QAHAAeD+AAIA/iABwP5AAAAAAAMAAP/gAgAB4AAEAAkAEAAAExEhESEBIREhEQMHJwcXNycAAgD+AAHg/kABwGCgYECg4EAB4P4AAgD+IAHA/kABcKBgQKDgQAAAAAABAAAAAQAA8rKWhF8PPPUACwIAAAAAANAf3dUAAAAA0B/d1QAA/+ACAAHgAAAACAACAAAAAAAAAAEAAAHg/+AAAAIAAAAAAAIAAAEAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAAAQAAAAIAAAACAAAAAAAAAAAKABQAHgA4AF4AAAABAAAABgARAAMAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAADgCuAAEAAAAAAAEAGgAAAAEAAAAAAAIADgBxAAEAAAAAAAMAGgAwAAEAAAAAAAQAGgB/AAEAAAAAAAUAFgAaAAEAAAAAAAYADQBKAAEAAAAAAAoANACZAAMAAQQJAAEAGgAAAAMAAQQJAAIADgBxAAMAAQQJAAMAGgAwAAMAAQQJAAQAGgB/AAMAAQQJAAUAFgAaAAMAAQQJAAYAGgBXAAMAAQQJAAoANACZAGMAaABlAGMAawBfAHUAbgBjAGgAZQBjAGsAVgBlAHIAcwBpAG8AbgAgADEALgAwAGMAaABlAGMAawBfAHUAbgBjAGgAZQBjAGtjaGVja191bmNoZWNrAGMAaABlAGMAawBfAHUAbgBjAGgAZQBjAGsAUgBlAGcAdQBsAGEAcgBjAGgAZQBjAGsAXwB1AG4AYwBoAGUAYwBrAEYAbwBuAHQAIABnAGUAbgBlAHIAYQB0AGUAZAAgAGIAeQAgAEkAYwBvAE0AbwBvAG4ALgAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==) format('truetype'),
+		 url(data:application/font-woff;charset=utf-8;base64,d09GRk9UVE8AAATUAAoAAAAABIwAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAAREAAAERSPlxl09TLzIAAAIIAAAAYAAAAGBIIizHY21hcAAAAmgAAABMAAAATNpETHhnYXNwAAACtAAAAAgAAAAIAAAAEGhlYWQAAAK8AAAANgAAADYBXvxnaGhlYQAAAvQAAAAkAAAAJAPiAedobXR4AAADGAAAABgAAAAYBQAAAG1heHAAAAMwAAAABgAAAAYABlAAbmFtZQAAAzgAAAF7AAABe5g8J1twb3N0AAAEtAAAACAAAAAgAAMAAAEABAQAAQEBDmNoZWNrX3VuY2hlY2sAAQIAAQA6+BwC+BsD+BgEHgoAGVP/i4seCgAZU/+LiwwHi2v4lPh0BR0AAACODx0AAACTER0AAAAJHQAAAQgSAAcBAQ4bHR8iJyxjaGVja191bmNoZWNrY2hlY2tfdW5jaGVja3UwdTF1MjB1MjYxMHUyNjExAAACAYkABAAGAQEEBwoNMWz8lA78lA78lA77lA6L+HQVi/yU+JSLi/iU/JSLBfh0/HQV/FSLi/hU+FSLi/xUBQ6L+HQVi/yU+JSLi/iU/JSLBfh0/HQV/FSLi/hU+FSLi/xUBSv4BBX7NPs0K+tLS/c0+zT3dPd0S8sFDviUFPiUFYsMCgAAAAADAgABkAAFAAABTAFmAAAARwFMAWYAAAD1ABkAhAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAAAAAAAAEAAACYRAeD/4P/gAeAAIAAAAAEAAAAAAAAAAAAAACAAAAAAAAIAAAADAAAAFAADAAEAAAAUAAQAOAAAAAoACAACAAIAAQAgJhH//f//AAAAAAAgJhD//f//AAH/49n0AAMAAQAAAAAAAAAAAAAAAQAB//8ADwABAAAAAQAAY6yd8V8PPPUACwIAAAAAANAf3dUAAAAA0B/d1QAA/+ACAAHgAAAACAACAAAAAAAAAAEAAAHg/+AAAAIAAAAAAAIAAAEAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAAAQAAAAIAAAACAAAAAABQAAAGAAAAAAAOAK4AAQAAAAAAAQAaAAAAAQAAAAAAAgAOAHEAAQAAAAAAAwAaADAAAQAAAAAABAAaAH8AAQAAAAAABQAWABoAAQAAAAAABgANAEoAAQAAAAAACgA0AJkAAwABBAkAAQAaAAAAAwABBAkAAgAOAHEAAwABBAkAAwAaADAAAwABBAkABAAaAH8AAwABBAkABQAWABoAAwABBAkABgAaAFcAAwABBAkACgA0AJkAYwBoAGUAYwBrAF8AdQBuAGMAaABlAGMAawBWAGUAcgBzAGkAbwBuACAAMQAuADAAYwBoAGUAYwBrAF8AdQBuAGMAaABlAGMAa2NoZWNrX3VuY2hlY2sAYwBoAGUAYwBrAF8AdQBuAGMAaABlAGMAawBSAGUAZwB1AGwAYQByAGMAaABlAGMAawBfAHUAbgBjAGgAZQBjAGsARgBvAG4AdAAgAGcAZQBuAGUAcgBhAHQAZQBkACAAYgB5ACAASQBjAG8ATQBvAG8AbgAuAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA) format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+table.demo#demo_02 tr td {
+	background-color:		#ffffff;
+	border:					2px solid #333333;
+	padding:				4px;
+	cursor:					default;
+}
+table.demo#demo_02 tr.selected td {
+	background-color:		#eeeeee;
+	cursor:					move;
+}
+table.demo#demo_02 tr td.select_handle,
+table.demo#demo_02 tr.selected td.select_handle {
+	background-color:		#333333;
+	cursor:					pointer;
+	width:					50px;
+}
+table.demo#demo_02 tr td.select_handle {
+	border-top-color:		#eeeeee;
+	border-bottom-color:	#eeeeee;
+}
+table.demo#demo_02 tr:first-child td.select_handle {
+	border-top-color:		#333333;
+}
+table.demo#demo_02 tr:last-child td.select_handle {
+	border-bottom-color:	#333333;
+}
+table.demo#demo_02 tr td {
+	text-align:				left;
+	color:					#333333;
+	font-weight:			bold;
+	font-family:			sans-serif;
+	font-size:				12px;
+}
+table.demo#demo_02 tr td.select_handle {
+	text-align:				center;
+	color:					#eeeeee;
+	font-weight:			normal;
+	font-family:			'uncheck_check',sans-serif;
+	font-size:				25px;
+}
+table.demo#demo_02 tr td.select_handle:before {
+	content:				"\2610";
+}
+table.demo#demo_02 tr.selected td.select_handle:before {
+	content:				"\2611";
+}
+
+/* ----- demo #03 ------------------------------- */
+
+table.demo#demo_03 {
+	border-collapse:		separate;
+	border-spacing:			2px;
+}
+table.demo#demo_03 tr td {
+	background-color:		#333333;
+	cursor:					pointer;
+
+	color:					#cccccc;
+	font-weight:			bold;
+	font-family:			sans-serif;
+	font-size:				12px;
+}
+table.demo#demo_03 tr.selected td {
+	background-color:		#999999;
+}
+table.demo#demo_03 tr td:first-child {
+	width:					50px;
+	text-align:				center;
+}
+
+/* ----- demo #04 ------------------------------- */
+
+table.demo#demo_04 {
+	border-collapse:		separate;
+	border-spacing:			2px;
+}
+table.demo#demo_04 tr td {
+	background-color:		#333333;
+	cursor:					pointer;
+
+	color:					#cccccc;
+	font-weight:			bold;
+	font-family:			sans-serif;
+	font-size:				12px;
+}
+table.demo#demo_04 tr.dragging td {
+	background-color:		#999999;
+	cursor:					move;
+}
+table.demo#demo_04 tr td:first-child {
+	width:					50px;
+	text-align:				center;
+}
+
+/* ---------------------------------------------- */

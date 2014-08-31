@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="js/jquery.table_multi_row_selectable_drag_drop.js"></script>
+<script>
+
+jQuery(document).ready(function($){
+
+	$('table#demo_01').table_multi_row_selectable_drag_drop();
+
+	$('table#demo_02').table_multi_row_selectable_drag_drop({
+		"element_selectors"		: {
+			"table_cells"			: {
+				"select_handle"			: "td.select_handle",
+				"drag_handle"			: "td:not(.select_handle)"
+			}
+		}
+	});
+
+	$('table#demo_03').table_multi_row_selectable_drag_drop({
+		"element_selectors"		: {
+			"table_rows"			: {
+				"not_draggable"			: ["tr.nodrag","tr.selected"]
+			},
+			"table_cells"			: {
+				"select_handle"			: "td",
+				"drag_handle"			: ""
+			}
+		}
+	});
+
+	$('table#demo_04').table_multi_row_selectable_drag_drop({
+		"element_selectors"		: {
+			"table_cells"			: {
+				"select_handle"			: "",
+				"drag_handle"			: "td"
+			}
+		},
+		"behavior"				: {
+			"enable_unselected_drag"	: true
+		}
+	});
+
+});
+
+</script>
+
+<link rel="stylesheet" text="text/css" href="css/style.css" />
+
+</head>
+<body>
+<!-- -------------------------------------------- -->
+<div class="demo_container" x-title="1st cell: drag handle. all others: select handles.">
+	<table class="demo" id="demo_01">
+		<tr><td class="drag_handle">01</td><td></td></tr>
+		<tr><td class="drag_handle">02</td><td></td></tr>
+		<tr><td class="drag_handle">03</td><td></td></tr>
+		<tr><td class="drag_handle">04</td><td></td></tr>
+		<tr><td class="drag_handle">05</td><td></td></tr>
+		<tr><td class="drag_handle">06</td><td></td></tr>
+		<tr><td class="drag_handle">07</td><td></td></tr>
+		<tr><td class="drag_handle">08</td><td></td></tr>
+		<tr><td class="drag_handle">09</td><td></td></tr>
+		<tr><td class="drag_handle">10</td><td></td></tr>
+	</table>
+</div>
+<!-- -------------------------------------------- -->
+<div class="demo_container" x-title="1st cell: select handle. all others: drag handles.">
+	<table class="demo" id="demo_02">
+		<tr><td class="select_handle"></td><td>01</td></tr>
+		<tr><td class="select_handle"></td><td>02</td></tr>
+		<tr><td class="select_handle"></td><td>03</td></tr>
+		<tr><td class="select_handle"></td><td>04</td></tr>
+		<tr><td class="select_handle"></td><td>05</td></tr>
+		<tr><td class="select_handle"></td><td>06</td></tr>
+		<tr><td class="select_handle"></td><td>07</td></tr>
+		<tr><td class="select_handle"></td><td>08</td></tr>
+		<tr><td class="select_handle"></td><td>09</td></tr>
+		<tr><td class="select_handle"></td><td>10</td></tr>
+	</table>
+</div>
+<!-- -------------------------------------------- -->
+<div class="demo_container" x-title="special case: all cells are select handles. rows cannot be dragged.">
+	<table class="demo" id="demo_03">
+		<tr><td>01</td><td></td></tr>
+		<tr><td>02</td><td></td></tr>
+		<tr><td>03</td><td></td></tr>
+		<tr><td>04</td><td></td></tr>
+		<tr><td>05</td><td></td></tr>
+		<tr><td>06</td><td></td></tr>
+		<tr><td>07</td><td></td></tr>
+		<tr><td>08</td><td></td></tr>
+		<tr><td>09</td><td></td></tr>
+		<tr><td>10</td><td></td></tr>
+	</table>
+</div>
+<!-- -------------------------------------------- -->
+<div class="demo_container" x-title="special case: all cells are drag handles. rows cannot be selected.">
+	<table class="demo" id="demo_04">
+		<tr><td>01</td><td></td></tr>
+		<tr><td>02</td><td></td></tr>
+		<tr><td>03</td><td></td></tr>
+		<tr><td>04</td><td></td></tr>
+		<tr><td>05</td><td></td></tr>
+		<tr><td>06</td><td></td></tr>
+		<tr><td>07</td><td></td></tr>
+		<tr><td>08</td><td></td></tr>
+		<tr><td>09</td><td></td></tr>
+		<tr><td>10</td><td></td></tr>
+	</table>
+</div>
+<!-- -------------------------------------------- -->
+</body>
+</html>
