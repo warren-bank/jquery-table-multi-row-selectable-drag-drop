@@ -2,56 +2,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="js/jquery.table_multi_row_selectable_drag_drop.js"></script>
-<script>
-
-jQuery(document).ready(function($){
-
-	$('table#demo_01').table_multi_row_selectable_drag_drop();
-
-	$('table#demo_02').table_multi_row_selectable_drag_drop({
-		"element_selectors"		: {
-			"table_cells"			: {
-				"select_handle"			: "td.select_handle",
-				"drag_handle"			: "td:not(.select_handle)"
-			}
-		}
-	});
-
-	$('table#demo_03').table_multi_row_selectable_drag_drop({
-		"element_selectors"		: {
-			"table_rows"			: {
-				"not_draggable"			: ["tr.nodrag","tr.selected"]
-			},
-			"table_cells"			: {
-				"select_handle"			: "td",
-				"drag_handle"			: ""
-			}
-		}
-	});
-
-	$('table#demo_04').table_multi_row_selectable_drag_drop({
-		"element_selectors"		: {
-			"table_cells"			: {
-				"select_handle"			: "",
-				"drag_handle"			: "td"
-			}
-		},
-		"behavior"				: {
-			"enable_unselected_drag"	: true
-		}
-	});
-
-});
-
-</script>
+<title>Demos: jquery.table_multi_row_selectable_drag_drop</title>
 
 <link rel="stylesheet" text="text/css" href="css/style.css" />
+<link rel="stylesheet" text="text/css" href="css/results_display_console.css" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="../../jquery.table_multi_row_selectable_drag_drop.js"></script>
+<script src="js/demo.js"></script>
 
 </head>
 <body>
+<!-- -------------------------------------------- -->
+<div id="results_display_console">
+	<div class="close">X</div>
+	<div class="content"></div>
+</div>
 <!-- -------------------------------------------- -->
 <div class="demo_container" x-title="1st cell: drag handle. all others: select handles.">
 	<table class="demo" id="demo_01">

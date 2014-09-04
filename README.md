@@ -11,7 +11,7 @@
 
 ### Example
 
-  * [demo.html](http://warren-bank.github.io/jquery-table-multi-row-selectable-drag-drop/demo.html)
+  * [demo.html](http://warren-bank.github.io/jquery-table-multi-row-selectable-drag-drop/demos/demos.html)
 
 ### Options <sub>(with default values)</sub>
 
@@ -88,7 +88,7 @@
         > a row can only be dragged (via a `drag_handle`) when it is unselected __if__ the following option is enabled:
         >   `options.behavior.enable_unselected_drag`
 
-        > for an example, refer to [demo #04](http://warren-bank.github.io/jquery-table-multi-row-selectable-drag-drop/demo.html#demo_04)
+        > for an example, refer to [demo #04](http://warren-bank.github.io/jquery-table-multi-row-selectable-drag-drop/demos/03_callback/demo.html#demo_04)
 
   * `options.dynamic_css_classes`
     * css classes that will be dynamically added to (and removed from) DOM elements in response to activity by the user.

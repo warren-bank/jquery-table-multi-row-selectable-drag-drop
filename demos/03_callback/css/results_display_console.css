@@ -1,0 +1,57 @@
+#results_display_console,
+#results_display_console div.content h2,
+#results_display_console div.content iframe {
+	margin:				0px;
+	padding:			0px;
+	outline:			none;
+}
+#results_display_console {
+	font-size:			10px;
+	font-family:		monospace;
+
+	width:				20%;
+	height:				40em;
+	position:			fixed;
+	z-index:			1;
+	top:				0px;
+	right:				0px;
+	overflow:			visible;
+
+	background-color:	#333;
+	color:				#eee;
+	border:				2px solid #eee;
+
+	padding:			0.5em;
+}
+#results_display_console div.close {
+	width:				1em;
+	height:				1em;
+
+	position:			absolute;
+	top:				0.5em;
+	right:				0.5em;
+
+	background-color:	#eee;
+	color:				#000;
+
+	text-align:			center;
+	line-height:		1em;
+	font-family:		sans-serif;
+	font-weight:		normal;
+
+	cursor:				pointer;
+}
+#results_display_console div.content {
+	padding-top:		2em;
+}
+#results_display_console div.content h2 {
+	height:				5em;
+}
+#results_display_console div.content iframe {
+	width:				98%;
+	height:				30em;
+	margin:				0px auto;
+	overflow:			auto;
+
+	background-color:	#eee;
+}

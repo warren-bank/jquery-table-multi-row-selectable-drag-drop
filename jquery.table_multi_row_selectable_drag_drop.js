@@ -411,7 +411,11 @@
 			}
 			if (as_drag){
 				var offset		= (direction === 'up')? -1 : 1;
-				static_methods.process_drag_drop($table, offset, table_state, selected_draggable_row_groups);
+				var error		= static_methods.process_drag_drop($table, offset, table_state, selected_draggable_row_groups);
+
+				if (! error){
+					table_state.options.event_handlers.drag_complete($selected_draggable_rows, $table, table_state.options);
+				}
 			}
 			if (as_select){
 				var $row		= (function(){
@@ -488,6 +492,13 @@
 
 			$selectable_rows	= static_methods.get_selectable_rows($table, table_state);
 
+			$selectable_rows.bind('dblclick dbltap', function(event){
+				if (typeof table_state.options.event_handlers.double_click === 'function'){
+					var $selected_row	= $(this);
+					table_state.options.event_handlers.double_click($selected_row, $table, table_state.options);
+				}
+			});
+
 			$selectable_rows.find( table_state.options.element_selectors.table_cells.select_handle ).bind('click', function(event){
 				event.preventDefault();
 				var $select_handle, $row;
@@ -539,12 +550,10 @@
 			table_state.drag_drop.coordsX			= pageX;
 			table_state.drag_drop.coordsY			= pageY;
 			table_state.drag_drop.drag_row_index	= static_methods.get_row_index($drag_row);
-		/*
 			table_state.drag_drop.initial			= {
 				"coordsY"							: table_state.drag_drop.coordsY,
-				"row_index"							: table_state.drag_drop.drag_row_index
+				"drag_row_index"					: table_state.drag_drop.drag_row_index
 			};
-		*/
 
 			var $document, movement_event_handler, end_movement_event_handler;
 			$document								= $(document);
@@ -671,11 +680,14 @@
 		},
 		"finalize_movement_event"	: function($table, $drag_row, $selected_draggable_rows, selected_draggable_row_groups, pageY, table_state){
 			if (! table_state){
-				table_state		= static_methods.get_table_state($table);
+				table_state			= static_methods.get_table_state($table);
 			}
-			table_state.drag_drop					= {};
+			var drag_occurred		= (table_state.drag_drop.drag_row_index !== table_state.drag_drop.initial.drag_row_index);
+			table_state.drag_drop	= {};
 			$selected_draggable_rows.removeClass( table_state.options.dynamic_css_classes.table_rows.is_dragging );
-			table_state.options.event_handlers.drag_complete($selected_draggable_rows, $table, table_state.options);
+			if (drag_occurred){
+				table_state.options.event_handlers.drag_complete($selected_draggable_rows, $table, table_state.options);
+			}
 		}
 	};
 
