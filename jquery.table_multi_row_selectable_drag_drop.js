@@ -127,9 +127,12 @@
 			};
 			return table_state;
 		},
-		"get_runtime_table_state"	: function(table_state){
-			if (! table_state){return;}
-			table_state.row_selectors	= static_methods.get_table_row_selectors(table_state.options, false);
+		"update_table_state"		: {
+			"row_selectors"			: function(table_state, is_pre_event_binding){
+				if (! table_state){return;}
+				is_pre_event_binding		= (!! is_pre_event_binding);
+				table_state.row_selectors	= static_methods.get_table_row_selectors(table_state.options, is_pre_event_binding);
+			}
 		},
 		"get_table_state"			: function($table){
 			var table_state		= $table.data(static_configs.table_state_data_key);
@@ -485,12 +488,15 @@
 			});
 		},
 		"bind_select_handle"			: function($table, table_state){
-			var $selectable_rows;
+			var selectable_attr, $selectable_rows;
 			if (! table_state){
 				table_state		= static_methods.get_table_state($table);
 			}
 
+			selectable_attr		= 'x-selectable';
+
 			$selectable_rows	= static_methods.get_selectable_rows($table, table_state);
+			$selectable_rows	= $selectable_rows.filter(':not([' +selectable_attr+ '])').attr(selectable_attr, '1');
 
 			$selectable_rows.bind('dblclick dbltap', function(event){
 				if (typeof table_state.options.event_handlers.double_click === 'function'){
@@ -510,13 +516,16 @@
 			});
 		},
 		"bind_drag_handle"			: function($table, table_state){
-			var $draggable_rows;
+			var draggable_attr, $draggable_rows;
 			if (! table_state){
 				table_state		= static_methods.get_table_state($table);
 			}
 
+			draggable_attr		= 'x-draggable';
+
 			$draggable_rows		= static_methods.get_selectable_rows($table, table_state);
 			$draggable_rows		= $draggable_rows.filter( table_state.row_selectors.is_draggable );
+			$draggable_rows		= $draggable_rows.filter(':not([' +draggable_attr+ '])').attr(draggable_attr, '1');
 
 			$draggable_rows.find( table_state.options.element_selectors.table_cells.drag_handle ).bind(startEvent, function(event){
 				event.preventDefault();
@@ -695,22 +704,36 @@
 
 	$.fn.table_multi_row_selectable_drag_drop = function(user_options){
 		this.each(function(){
-			var $table, options, table_state;
+			var $table, is_update, options, table_state;
 
 			$table				= $(this);
-			$tables				= $tables.add( $table );
-			options				= $.extend(true, {}, default_options, (user_options || {}));
-			table_state			= static_methods.get_initial_table_state( options );
 
-			$table.attr('tabindex', $tables.length);
-			$table.data(static_configs.table_state_data_key, table_state);
+			table_state			= $table.data(static_configs.table_state_data_key);
+			is_update			= ( (typeof table_state === 'object') && (table_state !== null) );
 
-			static_methods.bind_table_focus($table, table_state);
-			static_methods.bind_keystrokes($table, table_state);
-			static_methods.bind_select_handle($table, table_state);
-			static_methods.bind_drag_handle($table, table_state);
+			if (is_update){
+				static_methods.update_table_state.row_selectors(table_state, true);
 
-			static_methods.get_runtime_table_state(table_state);
+				static_methods.bind_select_handle($table, table_state);
+				static_methods.bind_drag_handle($table, table_state);
+
+				static_methods.update_table_state.row_selectors(table_state, false);
+			}
+			else {
+				$tables			= $tables.add( $table );
+				options			= $.extend(true, {}, default_options, (user_options || {}));
+				table_state		= static_methods.get_initial_table_state( options );
+
+				$table.attr('tabindex', $tables.length);
+				$table.data(static_configs.table_state_data_key, table_state);
+
+				static_methods.bind_table_focus($table, table_state);
+				static_methods.bind_keystrokes($table, table_state);
+				static_methods.bind_select_handle($table, table_state);
+				static_methods.bind_drag_handle($table, table_state);
+
+				static_methods.update_table_state.row_selectors(table_state, false);
+			}
 		});
 
 		// continue chaining

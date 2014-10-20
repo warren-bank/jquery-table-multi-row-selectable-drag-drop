@@ -165,6 +165,34 @@
     * then:
       * the event is processed as though the user had clicked on the adjacent row with __both__ the `Shift` and `Ctrl` keys pressed.
 
+###### How to dynamically add new rows to a table that has already been initialized by the plugin
+
+  * In the current implementation, jQuery `delegates` are not used to bind event handler/callback functions to `select_handle` and `drag_handle` elements.
+  * It may be necessary for a web application to update the data within a table.<br>
+    When this occurs, the table will need to be reinitialized.<br>
+    The plugin will recognize that the table is already being managed,
+    and will perform a subset of its normal initialization activities.
+  * Specifically, it will:
+    * look for new rows that are `selectable`, and activate `select_handle` elements
+    * look for new rows that are both `selectable` and `draggable`, and activate `drag_handle` elements
+  * In the current implementation, `options` are ignored when a table is being reinitialized. The original `options` remain in effect.
+  * Example usage:
+
+    ```javascript
+    jQuery(document).ready(function($){
+        var $table, options, options_late;
+        $table       = $('table#foo');
+        options      = {"element_selectors":{"table_rows":{"selectable":"tr:even","draggable":"tr:even"}}};
+        options_late = {"element_selectors":{"table_rows":{"selectable":"tr:odd", "draggable":"tr:odd"}}};
+
+        $table.table_multi_row_selectable_drag_drop(options);
+
+        // add rows to $table
+
+        $table.table_multi_row_selectable_drag_drop();  // passing `options_late` now would have no effect
+    });
+    ```
+
 ### FAQs
 
 ###### Why such a long, hard to remember name?

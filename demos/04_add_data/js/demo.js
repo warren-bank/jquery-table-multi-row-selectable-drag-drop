@@ -161,7 +161,7 @@ jQuery(document).ready(function($){
 				$row_template		= $rows.last().clone();
 				$row_container		= $rows.last().parent();
 
-				$row_template.removeClass('selected dragging').children('td').text('');
+				$row_template.removeAttr('x-selectable x-draggable').removeClass('selected dragging').children('td').text('');
 
 				for (i=1; i<=number_new_rows; i++){
 					new_row_index		= row_counter + i;
@@ -171,7 +171,7 @@ jQuery(document).ready(function($){
 				}
 
 				// bind event listeners to 'select_handle' and 'drag_handle' elements within the new rows:
-				//$table.table_multi_row_selectable_drag_drop();
+				$table.table_multi_row_selectable_drag_drop();
 			});
 		}
 	};
